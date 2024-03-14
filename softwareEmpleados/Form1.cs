@@ -20,6 +20,9 @@ namespace softwareEmpleados
             this.Show(); // aca queremos es que la de VentanaRegistrar aparezca
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

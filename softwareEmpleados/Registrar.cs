@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using softwareEmpleados.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,8 +20,7 @@ namespace softwareEmpleados
             
 
         }
-        string connectionString = "Data Source=DESKTOP-6MPUSM8;Initial Catalog=registroSoftware;Integrated Security=True";
-
+        string connectionString = "Server=DESKTOP-6MPUSM8;Database=registroSoftware;Integrated Security=True;TrustServerCertificate=true";
         private void textPassword1_TextChanged(object sender, EventArgs e)
         {
             textPassword1.UseSystemPasswordChar = true;
@@ -52,18 +52,36 @@ namespace softwareEmpleados
         private void buttonCrear_Click(object sender, EventArgs e)
         {
             var validacionDatos = validaciones.DatosCompletos(textName.Text, textApellido.Text, textEmail.Text, textPassword1.Text, textPassword2.Text);
+
             if (validacionDatos)
             {
                 buttonCrear.BackColor = Color.Green;
                 SqlConnection conexion = new SqlConnection(connectionString);
 
-                try
-                {
+
+
+                User usuario = new User();
+                usuario.Nombre = textName.Text;
+                usuario.Apellido = textApellido.Text;
+                usuario.Email = textEmail.Text;
+                usuario.Password = validaciones.HashPassword(textPassword1.Text).ToString();
+
+
                     conexion.Open();
-                    SqlCommand comandoCreacion = new SqlCommand(@"INSERT INTO usuario(Nombre, Apellido, Email, Password, confirmado)
-                                                              VALUES()");
-                }
-                this.Hide();
+
+                    SqlCommand comandoCreacion = new SqlCommand(@"INSERT INTO usuario (Nombre, Apellido, Email, Password, confirmado)
+                                              VALUES (@Nombre, @Apellido, @Email, @Password, @Confirmado)", conexion);
+                    // Agregar parámetros al comando SQL
+                    comandoCreacion.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                    comandoCreacion.Parameters.AddWithValue("@Apellido", usuario.Apellido);
+                    comandoCreacion.Parameters.AddWithValue("@Email", usuario.Email);
+                    comandoCreacion.Parameters.AddWithValue("@Password", usuario.Password); // Asumiendo que Confirmado es una propiedad de usuario
+                    comandoCreacion.Parameters.AddWithValue("@Confirmado", false);
+                // Ejecutar el comando SQL
+                comandoCreacion.ExecuteNonQuery();
+
+                conexion.Close();
+                this.Close();
             }
             else
             {

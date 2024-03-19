@@ -39,5 +39,23 @@ namespace softwareEmpleados
             }
         }
 
+       
+        public static bool VerifyPassword(string enteredPassword, string hashedPassword)
+        {
+            string hashedEnteredPassword = HashPassword(enteredPassword);
+
+            return hashedEnteredPassword == hashedPassword;
+        }
+
+        public static bool DatosCompletos(string nombre, string empresa)
+        {
+            if (nombre == string.Empty || empresa == string.Empty )
+            {
+                return false;
+            }
+            return true;
+
+        }
+
     }
 }

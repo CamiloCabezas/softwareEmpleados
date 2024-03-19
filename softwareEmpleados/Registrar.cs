@@ -66,17 +66,15 @@ namespace softwareEmpleados
                 usuario.Email = textEmail.Text;
                 usuario.Password = validaciones.HashPassword(textPassword1.Text).ToString();
 
-
                     conexion.Open();
 
-                    SqlCommand comandoCreacion = new SqlCommand(@"INSERT INTO usuario (Nombre, Apellido, Email, Password, confirmado)
-                                              VALUES (@Nombre, @Apellido, @Email, @Password, @Confirmado)", conexion);
+                    SqlCommand comandoCreacion = new SqlCommand(@"INSERT INTO usuario (Nombre, Apellido, Email, Password)
+                                              VALUES (@Nombre, @Apellido, @Email, @Password)", conexion);
                     // Agregar parámetros al comando SQL
                     comandoCreacion.Parameters.AddWithValue("@Nombre", usuario.Nombre);
                     comandoCreacion.Parameters.AddWithValue("@Apellido", usuario.Apellido);
                     comandoCreacion.Parameters.AddWithValue("@Email", usuario.Email);
                     comandoCreacion.Parameters.AddWithValue("@Password", usuario.Password); // Asumiendo que Confirmado es una propiedad de usuario
-                    comandoCreacion.Parameters.AddWithValue("@Confirmado", false);
                 // Ejecutar el comando SQL
                 comandoCreacion.ExecuteNonQuery();
 

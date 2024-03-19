@@ -38,6 +38,8 @@
             linkLabel1 = new LinkLabel();
             label4 = new Label();
             button1 = new Button();
+            debuglabel = new Label();
+            TextNews = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -136,11 +138,29 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // debuglabel
+            // 
+            debuglabel.AutoSize = true;
+            debuglabel.Location = new Point(493, 324);
+            debuglabel.Name = "debuglabel";
+            debuglabel.Size = new Size(0, 15);
+            debuglabel.TabIndex = 10;
+            // 
+            // TextNews
+            // 
+            TextNews.AutoSize = true;
+            TextNews.Location = new Point(516, 311);
+            TextNews.Name = "TextNews";
+            TextNews.Size = new Size(0, 15);
+            TextNews.TabIndex = 11;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(TextNews);
+            Controls.Add(debuglabel);
             Controls.Add(button1);
             Controls.Add(label4);
             Controls.Add(linkLabel1);
@@ -170,5 +190,7 @@
         private LinkLabel linkLabel1;
         private Label label4;
         private Button button1;
+        private Label debuglabel;
+        private Label TextNews;
     }
 }
